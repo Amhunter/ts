@@ -61,6 +61,8 @@ class SpeedometerView: UIImageView {
     
     
     let imageSize = UIImage(named: "speedometer2x")!.size
+    let arrowImageSize = UIImage(named: "speedometerArrow2x")!.size
+
     var scale:CGFloat = 1
     init() {
         super.init(image: UIImage(named: "speedometer2x"))
@@ -82,44 +84,49 @@ class SpeedometerView: UIImageView {
 //        self.frame.size.width = (imageWidth/imageHeight)*viewHeight
         
         self.addSubview(arrowImageView)
-        self.arrowImageView.backgroundColor = UIColor.whiteColor()
-        self.arrowImageView.image = UIImage(named: "arrow")
+//        self.arrowImageView.backgroundColor = UIColor.whiteColor()
 //        print(self.frame)
         maximumAngle = 180+negativeAngle+negativeAngle
         offset = -straightAngle-negativeAngle
         sectionAngle = maximumAngle/Double(numberOfSections)
         setSpeed(0)
-
 //        self.arrowImageView.transform = CGAffineTransformMakeRotation((CGFloat(M_PI) / 180) * -90)
-        
+        self.arrowImageView.layer.anchorPoint =  CGPointMake(0.5, 1);
+        self.arrowImageView.image = UIImage(named: "speedometerArrow2x")
+
+
     }
     
     func speedometerFrameWasUpdated() {
         //        self.setNeedsLayout()
         //        self.layoutIfNeeded()
+        print("hey")
         let imageWidth = imageSize.width
         let imageHeight = imageSize.height
 
         
-        let proportion = (imageWidth/imageHeight)
-
-        if (self.frame.size.width > screenWidth) {
-            self.frame.size = CGSizeMake(screenWidth, screenWidth*proportion)
-        }
-
-        print(self.frame)
-        let arrowHeight = self.frame.width/2-(45*scale)
-        self.arrowImageView.frame.origin = CGPointMake(self.frame.width/2-(arrowWidth/2),self.frame.width/2-(arrowHeight/2))
-//        self.arrowImageView.frame = CGRectMake(self.frame.width/2-(arrowWidth/2),self.frame.width/18, arrowWidth*scale, self.frame.width-(35*scale))
-        self.arrowImageView.frame.size = CGSizeMake(arrowWidth*scale, arrowHeight)
-
-        
         scale = self.frame.width/imageWidth
-
-        arrowImageView.layer.anchorPoint = CGPointMake(0.5, 1);
+        print(self.frame)
+        
+        let arrowProportion = arrowImageSize.height/arrowImageSize.width
+        let arrowHeight = self.frame.width/2-(45*scale)
+        let arrowWidth = arrowHeight/arrowProportion
+        self.arrowImageView.frame.size = CGSizeMake(arrowWidth, arrowHeight)
+        self.arrowImageView.center = CGPointMake(self.frame.width/2,self.frame.width/2)
+//        self.arrowImageView.frame = CGRectMake(self.frame.width/2-(arrowWidth/2),self.frame.width/4-(arrowHeight/2), arrowWidth*scale, self.frame.width-(35*scale))
+//        setAnchorPoint()
 
     }
-    
+    func setAnchorPoint(){
+        let anchorPoint =  CGPointMake(0.5, 1);
+        let oldOrigin = arrowImageView.frame.origin
+        arrowImageView.layer.anchorPoint = anchorPoint
+        let newOrigin = arrowImageView.frame.origin
+        
+        let transition = CGPointMake (newOrigin.x - oldOrigin.x, newOrigin.y - oldOrigin.y)
+        
+        arrowImageView.center = CGPointMake (arrowImageView.center.x - transition.x, arrowImageView.center.y - transition.y)
+    }
     
     func startSpeedometer() {
         if (self.speedometerTimer != nil) {
@@ -245,7 +252,8 @@ class SpeedometerView: UIImageView {
     }
     
     func pauseSpeedometer() {
-        self.arrowImageView.layer.removeAllAnimations() // <<====  Solution
+//        self.arrowImageView.layer.removeAllAnimations() // <<====  Solution
+//        self.arrowImageView.transform = CGAffineTransformMakeRotation(CGFloat(currentAngle).degreesToRadians)
     }
     
     func rotateArrow(angle: Double) {

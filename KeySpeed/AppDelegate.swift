@@ -8,20 +8,80 @@
 
 import UIKit
 import CoreData
-
+import AVFoundation
+enum Language:String {
+    case English = "English"
+    case Russian = "Russian"
+    case Mandarin = "Mandarin"
+    case Spanish  = "Spanish"
+    case Portuguese  = "Portuguese"
+    case Korean = "Korean"
+    case Japanese = "Japanese"
+    case French = "French"
+    case Italian = "Italian"
+    case German = "German"
+    
+}
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    
     static var gcEnabled = Bool()
     static var gcDefaultLeaderBoard = String()
-
+    static var chosenLanguage = Language.English
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         UIApplication.sharedApplication().statusBarHidden = true
         
         GameManager.setBestScore(0)
         GameManager.authenticateLocalPlayer()
         GameManager.submitBestScoreToGameCenter()
+        
+        let clickMusicURL = NSBundle.mainBundle().URLForResource("click_sound", withExtension: "wav")
+        do {
+            try SoundManager.clickSoundPlayer = AVAudioPlayer(contentsOfURL: clickMusicURL!)
+            
+        } catch let error {
+            print(error)
+        }
+        
+        let mistakeMusicURL = NSBundle.mainBundle().URLForResource("wrong-type", withExtension: "wav")
+        do {
+            try SoundManager.mistakeSoundPlayer = AVAudioPlayer(contentsOfURL: mistakeMusicURL!)
+            
+        } catch let error {
+            print(error)
+        }
+
+        let backgroundMusicURL = NSBundle.mainBundle().URLForResource("background", withExtension: "mp3")
+        do {
+            try SoundManager.backgroundMusicPlayer = AVAudioPlayer(contentsOfURL: backgroundMusicURL!)
+            SoundManager.backgroundMusicPlayer.numberOfLoops = -1
+            
+            let volume:Float = GameManager.isSoundOn() ? 1 : 0
+            SoundManager.backgroundMusicPlayer.volume = volume
+        } catch let error {
+            print(error)
+        }
+
+        let newBestScoreSoundURL = NSBundle.mainBundle().URLForResource("new_best_score", withExtension: "wav")
+        do {
+            try SoundManager.newBestScorePlayer = AVAudioPlayer(contentsOfURL: newBestScoreSoundURL!)
+            
+        } catch let error {
+            print(error)
+        }
+        
+        let pointCountingSoundURL = NSBundle.mainBundle().URLForResource("points_counting", withExtension: "wav")
+        do {
+            try SoundManager.pointCountingSoundPlayer = AVAudioPlayer(contentsOfURL: pointCountingSoundURL!)
+            
+        } catch let error {
+            print(error)
+        }
+
         // Override point for customization after application launch.
         return true
     }

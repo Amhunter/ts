@@ -114,7 +114,7 @@ class KScoreLabel: UIView {
         let decrementFromCorrect = (numberOfDigitsInCorrect-1)*differenceInSize
         let decrementFromMistakes = (numberOfDigitsInMistakes-1)*differenceInSize
         factor = 1 - decrementFromCorrect - decrementFromMistakes
-        print(" Text decrement factor : \(factor)")
+//        print(" Text decrement factor : \(factor)")
     }
     func updateCorrectLabel(correctCnt:Int) {
         

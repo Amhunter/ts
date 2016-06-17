@@ -40,7 +40,7 @@ class GameInstance: NSObject,TimerDelegate {
     var correctCount:Int = 0
     var correctKeysTimestamps:[Double] = []
 
-    var timeLimitForTheGame:Double = 40
+    var timeLimitForTheGame:Double = 5
     var timerCount:Double = 0
     
     var gameHasStarted = false
@@ -48,20 +48,11 @@ class GameInstance: NSObject,TimerDelegate {
 
     
     var timer:Timer!
-    var mistakeSoundPlayer:AVAudioPlayer!
 
     override init() {
         super.init()
         timer = Timer(interval: 0.1, delegate: self)
         
-        // Sounds
-        let wrongTypeSoundURL = NSBundle.mainBundle().URLForResource("wrong-type", withExtension: "wav")
-        do {
-            try mistakeSoundPlayer = AVAudioPlayer(contentsOfURL: wrongTypeSoundURL!)
-            
-        } catch let error {
-            print(error)
-        }
     }
     
     
@@ -114,23 +105,31 @@ class GameInstance: NSObject,TimerDelegate {
         gameHasStarted = false
         resetGame()
     }
-    func inputCharacter(character:String) { // pressed character will be here
+    func inputCharacter(character:String) -> Bool { // pressed character will be here, true if pass, false if not
         
         if gameIsPaused{ // ignore input if paused
-            return
+            return false
         }
         
-        if currentCursor >= textToType.characters.count {
-            return
+        if currentCursor >= textToType.characters.count { // ignore if end
+            return false
         }
+        
         
         let pressedChar = character
         
         if pressedChar == "\n" { // ignore enter key
-            return
+            return false
         }
         
-        if pressedChar == textToType[currentCursor] {
+        if pressedChar == "" { // ignore delete key
+            return false
+        }
+        
+        let compareRange = textToType.startIndex.advancedBy(currentCursor)...textToType.startIndex.advancedBy(currentCursor+character.characters.count-1)
+        let textt = textToType.substringWithRange(compareRange)
+        
+        if pressedChar == textToType.substringWithRange(compareRange) {
             
             if currentCursor == 0 { // start game
                 startGame()
@@ -146,21 +145,20 @@ class GameInstance: NSObject,TimerDelegate {
                 delegate!.correctCountHasChanged(correctCount)
                 delegate!.textHasShifted()
             }
-            
+            return true
 
         } else {
             if currentCursor > 0 {
                 
                 mistakesCount += 1
-                mistakeSoundPlayer.tryToPlay()
+                SoundManager.mistakeSoundPlayer.tryToPlay()
 
                 if delegate != nil {
                     delegate!.mistakeTrigger()
                     delegate!.mistakesCountHasChanged(mistakesCount)
                 }
-                
-                
             }
+            return false
         }
         
 
@@ -187,17 +185,35 @@ class GameInstance: NSObject,TimerDelegate {
         timer.stop()
         timerCount = timeLimitForTheGame
         
-//        if delegate != nil {
-//            delegate!.timerValueWasUpdated(timerCount)
-//        }
-        
-        mistakesCount = 0
-        correctCount = 0
-        currentCursor = 0
-        correctKeysTimestamps = []
-        if delegate != nil {
-            delegate!.gameWasReset()
+        let randomInt = "\(Int(GameManager.randRangeToChooseText(1, upper: 500)))"
+        do {
+            let chosenlanguage = AppDelegate.chosenLanguage.rawValue as NSString
+            let fileName = "\(chosenlanguage.substringToIndex(3))\(randomInt)"
+//            print(NSBundle.mainBundle().resourcePath)
+            let path = NSBundle.mainBundle().pathForResource(fileName, ofType: "txt")
+            textToType = try String(contentsOfFile: path!,encoding: NSUTF8StringEncoding)
+            //        if delegate != nil {
+            //            delegate!.timerValueWasUpdated(timerCount)
+            //        }
+            
+            mistakesCount = 0
+            correctCount = 0
+            currentCursor = 0
+            correctKeysTimestamps = []
+            
+            if delegate != nil {
+                delegate!.gameWasReset()
+            }
+
+        } catch {
+            let aVC = UIAlertController(title: "Error", message: "\(error)", preferredStyle: UIAlertControllerStyle.Alert)
+            aVC.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            GameManager.getTopMostViewController().presentViewController(aVC, animated: true, completion: nil)
         }
+
+        
+        
+        
         
 
     }

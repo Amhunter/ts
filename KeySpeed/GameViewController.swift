@@ -66,7 +66,6 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
     var scoreLabel = KScoreLabel()
     var pauseButton = UIButton()
     var backgroundView = UIView()
-    var backgroundImageView = UIImageView()
     let line = UIView()
     
     var delegate:GameViewControllerDelegate!
@@ -80,32 +79,14 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
     var gameendview = GameEndView()
     var gamepauseview = GamePauseView()
 
-    
+    let bannerSize:CGFloat = 50
+    let imageSize = UIImage(named: "speedometer2x")!.size
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        maxFitLength = (UIDevice.currentDevice().userInterfaceIdiom == .Pad) ? 120 : 40
         // Do any additional setup after loading the view, typically from a nib.
         self.view.tag = 2
-        // Set Screen background
-        if UIDevice().userInterfaceIdiom == .Phone {
-            switch UIScreen.mainScreen().nativeBounds.height {
-            case 480:
-                print("iPhone Classic")
-            case 960:
-                print("iPhone 4 or 4S")
-            case 1136:
-                backgroundImageView.image = UIImage(named: "background568")
-                print("iPhone 5 or 5S or 5C")
-            case 1334:
-                backgroundImageView.image = UIImage(named: "background667")
-                print("iPhone 6 or 6S")
-            case 2208:
-                print("iPhone 6+ or 6S+")
-            default:
-                print("unknown")
-            }
-        }
-        backgroundImageView.backgroundColor = UIColor.blackColor()
         
         NSNotificationCenter.defaultCenter().addObserver(self,selector: #selector(keyboardWillBeShown(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(
@@ -113,15 +94,9 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
             selector: #selector(appEnteredBackground(_:)),
             name: UIApplicationWillResignActiveNotification,
             object: UIApplication.sharedApplication())
-        
-        // Layout , self.view -> backgroundImageView -> backgroundView
-        
-        self.view.addSubview(self.backgroundImageView)
-        self.backgroundImageView.frame.size = self.view.frame.size
-        
-        self.backgroundImageView.addSubview(self.backgroundView)
-        self.backgroundView.frame.size = self.backgroundImageView.frame.size
-        self.backgroundView.backgroundColor = UIColor.clearColor()
+
+        self.view.addSubview(backgroundView)
+        self.backgroundView.frame.size = self.view.frame.size
         
         self.backgroundView.addSubview(textfield)
         self.backgroundView.addSubview(leftLabel)
@@ -134,7 +109,7 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
         textfield.translatesAutoresizingMaskIntoConstraints = false
         timerLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
-        speedometerView.translatesAutoresizingMaskIntoConstraints = false
+//        speedometerView.translatesAutoresizingMaskIntoConstraints = false
         pauseButton.translatesAutoresizingMaskIntoConstraints = false
 
         let views = [
@@ -160,39 +135,21 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
         let metrics = [
             "leftOffset": 11,
             "f1": offset1,
+            "bannerSize": bannerSize,
             "pauseButtonSide" : pauseButtonSide
 //            "tw" : topOffset
         ]
-//        let hConstraints0 = NSLayoutConstraint.constraintsWithVisualFormat("H:|-10@999-[speedometerView]-10@999-|", options: [], metrics: metrics, views: views)
-        let hConstraint0 = NSLayoutConstraint(item: speedometerView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.backgroundView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
 
         let hConstraints1 = NSLayoutConstraint.constraintsWithVisualFormat("H:|[textfield]|", options: [], metrics: metrics, views: views)
         let hConstraints2 = NSLayoutConstraint.constraintsWithVisualFormat("H:|-f1@999-[scoreLabel]->=f1@999-[pauseButton(pauseButtonSide@999)]->=0@999-[timerLabel]-20@999-|", options: [NSLayoutFormatOptions.AlignAllBottom], metrics: metrics, views: views)
         let hConstraint3 = NSLayoutConstraint(item: pauseButton, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.backgroundView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
         
-        let vConstraints0 = NSLayoutConstraint.constraintsWithVisualFormat("V:|->=50@999-[speedometerView]-0@999-[timerLabel(58@999)]-10@999-[textfield(42@999)]-0@999-|", options: [], metrics: metrics, views: views)
-        let vConstraints1 = NSLayoutConstraint.constraintsWithVisualFormat("V:|-50@999-[speedometerView]-0@999-[scoreLabel(58@999)]-10@999-[textfield(42@999)]-0@999-|", options: [], metrics: metrics, views: views)
+        let vConstraints0 = NSLayoutConstraint.constraintsWithVisualFormat("V:|->=bannerSize@999-[timerLabel(58@999)]-10@999-[textfield(42@999)]-0@999-|", options: [], metrics: metrics, views: views)
+        let vConstraints1 = NSLayoutConstraint.constraintsWithVisualFormat("V:|->=bannerSize@999-[scoreLabel(58@999)]-10@999-[textfield(42@999)]-0@999-|", options: [], metrics: metrics, views: views)
         let squareConstraint0 = NSLayoutConstraint(item: pauseButton, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: pauseButton, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0)
         
         
-        let imageSize = UIImage(named: "speedometer2x")!.size
-        let imageWidth = imageSize.width
-        let imageHeight = imageSize.height
-
-//        let viewHeight = self.frame.height
-//        
-//        self.frame.size.width = (imageWidth/imageHeight)*viewHeight
-        let propotion = (imageWidth/imageHeight)
-        
-        let speedometerConstraint0 = NSLayoutConstraint(item: speedometerView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: speedometerView, attribute: NSLayoutAttribute.Height, multiplier: propotion, constant: 0)
-//        speedometerConstraint0.priority = 700
-        let speedometerConstraint1 = NSLayoutConstraint(item: speedometerView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.backgroundView, attribute: NSLayoutAttribute.Top, multiplier: propotion, constant: -50)
-        speedometerConstraint1.priority = 999
-//        let speedometerConstraint2 = NSLayoutConstraint(item: speedometerView, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.GreaterThanOrEqual, toItem: self.backgroundView, attribute: NSLayoutAttribute.Right, multiplier: propotion, constant: 0)
-//        speedometerConstraint2.priority = 800
-
-        
-        self.backgroundView.addConstraints([[hConstraint0,speedometerConstraint0], hConstraints1, hConstraints2].flatMap{$0})
+        self.backgroundView.addConstraints([hConstraints1, hConstraints2].flatMap{$0})
         self.backgroundView.addConstraint(hConstraint3)
         self.backgroundView.addConstraint(squareConstraint0)
 
@@ -201,18 +158,31 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
 
         self.backgroundView.setNeedsLayout()
         self.backgroundView.layoutIfNeeded()
+        
+        
         self.navigationController?.navigationBarHidden = true
         line.backgroundColor = UIColor.blackColor()
         line.frame.size = CGSizeMake(1, textfield.frame.height)
         self.line.center = CGPointMake(textfield.frame.width/2-0.5,self.backgroundView.frame.height-(self.textfield.frame.height/2))
         self.backgroundView.addSubview(line)
         
+        self.leftFadeView.frame.origin = self.textfield.frame.origin
+        self.rightFadeView.frame.origin = CGPointMake(self.screenWidth-self.gradientLength,self.textfield.frame.origin.y)
+
+        
+        // Background Color
+        let backgroundViewGradient = CAGradientLayer()
+        backgroundViewGradient.frame = backgroundView.bounds
+        backgroundViewGradient.startPoint = CGPoint(x: 0,y: 0)
+        backgroundViewGradient.endPoint = CGPoint(x: 1,y: 1)
+        backgroundViewGradient.colors = [ColorFromCode.colorWithHexString("#3F0C51").CGColor,ColorFromCode.colorWithHexString("#FF365D").CGColor]
+        self.backgroundView.layer.insertSublayer(backgroundViewGradient, atIndex: 0)
         
         // Labels 
         scoreLabel.initializeLabel(40*scale)
         
         self.leftLabel.frame.size = CGSizeMake(self.screenWidth, self.textfield.frame.height)
-        self.leftLabel.frame.origin = textfield.frame.origin
+        self.leftLabel.frame.origin = CGPointMake(-self.textfield.frame.width/2,self.textfield.frame.origin.y)
         self.leftLabel.numberOfLines = 1
         self.leftLabel.textAlignment = NSTextAlignment.Right
         self.leftLabel.textColor = ColorFromCode.colorWithHexString("#7F7F7F")
@@ -220,7 +190,7 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
         self.leftLabel.backgroundColor = ColorFromCode.colorWithHexString("#F2F2F2")
         
         self.rightLabel.frame.size = CGSizeMake(self.screenWidth, self.textfield.frame.height)
-        self.rightLabel.frame.origin = CGPointMake(self.screenWidth-self.rightLabel.frame.width, self.backgroundView.frame.height-self.textfield.frame.height)
+        self.rightLabel.frame.origin = CGPointMake(self.screenWidth-self.textfield.frame.width/2, self.textfield.frame.origin.y)
         self.rightLabel.numberOfLines = 1
         self.rightLabel.textAlignment = NSTextAlignment.Left
         self.rightLabel.textColor = UIColor.blackColor()
@@ -233,7 +203,6 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
         self.timerLabel.textColor = ColorFromCode.colorWithHexString("#F6FDFD")
         self.timerLabel.font = UIFont(name: "Helvetica", size: 36)
         
-        rightLabel.text = gameInstance.textToType.substringToIndex(gameInstance.textToType.startIndex.advancedBy(maxFitLength/2))
 
         // Gradient Views
         self.backgroundView.addSubview(leftFadeView)
@@ -258,6 +227,7 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
         self.pauseButton.addTarget(self, action: #selector(pauseGamePressed), forControlEvents: UIControlEvents.TouchUpInside)
         // Set Speedometer View
         speedometerView.setSpeedometer()
+        self.setupSpeedometerFrame()
 
         textfield.hidden = true
         textfield.autocapitalizationType = UITextAutocapitalizationType.None
@@ -266,7 +236,6 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
         gameInstance.delegate = self
         updateTimerLabel(gameInstance.timerCount)
         updateCorrectLabel(0, mistakes: 0)
-        self.backgroundImageView.userInteractionEnabled = true
 
         
         // Game End View
@@ -274,8 +243,9 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
         gameendview.frame = self.view.frame
         gameendview.initializeView()
         gameendview.homeButton.addTarget(self, action: #selector(showHome), forControlEvents: UIControlEvents.TouchUpInside)
-        gameendview.startAgainButton.addTarget(self, action: #selector(startAgain), forControlEvents: UIControlEvents.TouchUpInside)
-        gameendview.gamecenterButton.addTarget(self, action: #selector(showLeaderboard), forControlEvents: UIControlEvents.TouchUpInside)
+        gameendview.replayButton.addTarget(self, action: #selector(startAgain), forControlEvents: UIControlEvents.TouchUpInside)
+        gameendview.gameCenterButton.addTarget(self, action: #selector(showLeaderboard), forControlEvents: UIControlEvents.TouchUpInside)
+        gameendview.shareButton.addTarget(self, action: #selector(self.share), forControlEvents: UIControlEvents.TouchUpInside)
 
         
         // Game Pause View
@@ -285,12 +255,38 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
         gamepauseview.homeButton.addTarget(self, action: #selector(showHome), forControlEvents: UIControlEvents.TouchUpInside)
         gamepauseview.resumeButton.addTarget(self, action: #selector(resumeGamePressed), forControlEvents: UIControlEvents.TouchUpInside)
         gamepauseview.replayButton.addTarget(self, action: #selector(replayGame), forControlEvents: UIControlEvents.TouchUpInside)
-
         
-        
+        self.gameInstance.resetGame()
 
 
     }
+    
+    func setupSpeedometerFrame() {
+        
+
+        var speedometerHeight = self.scoreLabel.frame.origin.y-bannerSize
+
+        let imageWidth = imageSize.width
+        let imageHeight = imageSize.height
+        let proportion = (imageWidth/imageHeight)
+        
+        var speedometerWidth = proportion*speedometerHeight
+        
+        if speedometerWidth > screenWidth {
+            speedometerWidth = screenWidth
+            speedometerHeight = speedometerWidth/proportion
+        }
+        let leftOffset = (screenWidth-speedometerWidth)/2
+        let topOffset = self.scoreLabel.frame.origin.y-speedometerHeight
+        self.speedometerView.frame.size = CGSizeMake(speedometerWidth, speedometerHeight)
+        let yCenter = topOffset+speedometerHeight/2
+        self.speedometerView.center = CGPointMake(self.backgroundView.center.x, yCenter)
+//        self.speedometerView.frame = CGRectMake(leftOffset, topOffset, speedometerWidth, speedometerHeight)
+        self.speedometerView.speedometerFrameWasUpdated()
+
+    }
+    
+    
     func appEnteredBackground(notification: NSNotification) {
         if gameInstance.gameHasStarted {
             gameInstance.pauseGame()
@@ -301,6 +297,7 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
     }
     
     func pauseGamePressed() {
+        SoundManager.clickSoundPlayer.tryToPlay()
         gameInstance.pauseGame()
         speedometerView.pauseSpeedometer()
         showGamePauseView(true, animated: true)
@@ -317,6 +314,7 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
             self.gameendview.alpha = (show ? 1 : 0)
             self.gameendview.userInteractionEnabled = show
         }
+        self.gameendview.animateButtons(show)
     }
     
     func showGamePauseView(show:Bool,animated:Bool) {
@@ -325,6 +323,7 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
             self.gamepauseview.alpha = (show ? 1 : 0)
             self.gamepauseview.userInteractionEnabled = show
         }
+        self.gamepauseview.animateButtons(show)
     }
     
     func showHome() {
@@ -347,8 +346,16 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
     // Text Functions
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        gameInstance.inputCharacter(string)
-        return false
+        let autocompletionenabled = false
+        if string.characters.count > 1 {
+            if autocompletionenabled {
+                return gameInstance.inputCharacter(string)
+            } else {
+                return false
+            }
+        } else {
+            return gameInstance.inputCharacter(string)
+        }
     }
     
     func mistakeTrigger() {
@@ -452,7 +459,8 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
         //        var futurePostCommentViewframe:CGRect = CGRectMake(0, self.view.frame.height-self.PostCommentView.frame.height-movement, PostCommentView.frame.width, PostCommentView.frame.height)
         //        var futureTableViewframe:CGRect = CGRectMake(0, 0, self.view.frame.width,futurePostCommentViewframe.origin.y+self.navBarheight)
         //        println("\(futurePostCommentViewframe.origin.y)")
-        
+//        self.setupSpeedometerFrame()
+
 
         print("keyboardFrame: \(keyboardFrame)")
     }
@@ -481,9 +489,8 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
 
 //            self.leftFadeGradient.startPoint = CGPoint(x: 0,y: 0.5)
 //            self.leftFadeGradient.endPoint = CGPoint(x: 1,y: 0.5)
-            if !self.keyboardWasShownBefore {
-                self.speedometerView.speedometerFrameWasUpdated()
-            }
+            
+            self.setupSpeedometerFrame()
 
         }, completion: nil)
         keyboardWasShownBefore = true
@@ -493,6 +500,7 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
     
     
     let nSeconds:Double = 7
+    var currentSpeed:Double = 0
     func timerValueWasUpdated(timerValue: Double) {
         updateTimerLabel(timerValue)
 //        print(gameInstance.correctCount)
@@ -514,18 +522,35 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
             (value:Double) -> Bool in
             return value <= rightMargin
         }
-        let speed = Double(correctTimesInLastNSeconds.count)/(lastSeconds)*60
+        
+        currentSpeed = Double(correctTimesInLastNSeconds.count)/(lastSeconds)*60
 //        print("Current Speed is \(speed)cpm")
 
-        speedometerView.setSpeed(speed)
+        speedometerView.setSpeed(currentSpeed)
     }
     func gameHasEnded() {
         print("game has ended")
-        let currentScore = gameInstance.correctCount - gameInstance.mistakesCount
+        
+        // get current score
+        var currentScore = gameInstance.correctCount - gameInstance.mistakesCount
+        if currentScore < 0 {
+            currentScore = 0
+        }
+        
+        // check for record
+        let newRecord = currentScore > GameManager.currentBestScore() ? true : false
+
+        // just a function, will not set if there is no new record
         GameManager.setBestScore(currentScore)
+        
+        // store best score anyway
         let bestScore = GameManager.currentBestScore()
-        let speed:Int = gameInstance.correctCount/Int(round(gameInstance.timeLimitForTheGame))*60
-        gameendview.showResult(currentScore, bestScore: bestScore, speed: speed)
+        
+        // calculate speed
+        let speed:Int = Int(round(Double(gameInstance.correctCount)/gameInstance.timeLimitForTheGame*60))
+        
+        // show result
+        gameendview.showResult(currentScore, bestScore: bestScore, speed: speed, newRecord: newRecord)
         showGameEndView(true)
     }
     
@@ -535,8 +560,13 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
     }
     func gameWasReset() {
         print("game was reset")
-//        updateCorrectLabel(0, mistakes: 0)
-//        updateTimerLabel(gameInstance.timerCount)
+        currentSpeed = 0
+        speedometerView.setSpeed(0)
+
+        correctCountHasChanged(0)
+        mistakesCountHasChanged(0)
+        updateTimerLabel(gameInstance.timerCount)
+        self.rightLabel.text = gameInstance.textToType.substringToIndex(gameInstance.textToType.startIndex.advancedBy(maxFitLength/2))
         shiftText()
 //        self.backgroundView.layoutSubviews()
 
@@ -567,6 +597,22 @@ class GameViewController: UIViewController, UITextFieldDelegate, GameInstanceDel
         gcVC.viewState = GKGameCenterViewControllerState.Leaderboards
         gcVC.leaderboardIdentifier = "LeaderboardID"
         self.presentViewController(gcVC, animated: true, completion: nil)
+    }
+    func share() {
+        
+        //        let vc = self.view?.window?.rootViewController
+        let image = GameManager.generateShareRecordImage()
+        
+        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        //        activityVC.popoverPresentationController?.sourceView = self.view
+        //        let rootFrame = (GameManager.getTopMostViewController() as! MainMenuViewController).shareButton.frame
+        //        activityVC.popoverPresentationController?.sourceRect = CGRectMake(screenWidth/2, screenHeight/2, 1, 1)
+        activityVC.completionWithItemsHandler = {
+            (activityType: String?, completed: Bool,objects:[AnyObject]?, error:NSError?) -> Void in
+            print("end")
+
+        }
+        self.presentViewController(activityVC, animated: true, completion: nil)
     }
     
 }

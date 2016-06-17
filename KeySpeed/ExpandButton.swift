@@ -7,24 +7,29 @@
 //
 
 import UIKit
-
+import AVFoundation
 class ExpandButton: UIButton {
     var largened = false
-    
     init() {
         super.init(frame: CGRectZero)
         self.adjustsImageWhenHighlighted = false
-
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
         fatalError("init(coder:) has not been implemented")
     }
+    var disableSound = false
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         largened = true
         highlight()
+        if !disableSound {
+            SoundManager.clickSoundPlayer.tryToPlay()
+        }
+
     }
 
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
