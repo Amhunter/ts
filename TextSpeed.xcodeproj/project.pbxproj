@@ -13,7 +13,6 @@
 		C93DB07E1CEBCDAC0091BC5E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93DB07D1CEBCDAC0091BC5E /* GameViewController.swift */; };
 		C93DB0811CEBCDAC0091BC5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93DB07F1CEBCDAC0091BC5E /* Main.storyboard */; };
 		C93DB0861CEBCDAC0091BC5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C93DB0851CEBCDAC0091BC5E /* Assets.xcassets */; };
-		C93DB0891CEBCDAC0091BC5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93DB0871CEBCDAC0091BC5E /* LaunchScreen.storyboard */; };
 		C93DB0911CEBFFB20091BC5E /* GameInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93DB0901CEBFFB20091BC5E /* GameInstance.swift */; };
 		C93DB0931CEC046C0091BC5E /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93DB0921CEC046C0091BC5E /* Timer.swift */; };
 		C9478BB51CED2E190070984F /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9478BB41CED2E190070984F /* MainMenuViewController.swift */; };
@@ -33,6 +32,9 @@
 		C97F28C01D0625E2000ABBCD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97F28BF1D0625E2000ABBCD /* CoreGraphics.framework */; };
 		C97F28C21D071B44000ABBCD /* KScoreLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97F28C11D071B44000ABBCD /* KScoreLabel.swift */; };
 		C9A949941D17A7DA0026C56F /* SwitchLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A949931D17A7DA0026C56F /* SwitchLanguageView.swift */; };
+		C9A949961D18E6820026C56F /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A949951D18E6820026C56F /* LaunchScreenViewController.swift */; };
+		C9A949981D18EF8C0026C56F /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A949971D18EF8C0026C56F /* AdManager.swift */; };
+		C9A9499A1D18F8F20026C56F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9A949991D18F8F20026C56F /* LaunchScreen.storyboard */; };
 		C9A9C89E1CF2854D00157B63 /* SpeedometerDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A9C89D1CF2854D00157B63 /* SpeedometerDemoViewController.m */; };
 		C9C31D141CFB9F0B00B89A5E /* GameEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C31D131CFB9F0B00B89A5E /* GameEndView.swift */; };
 		C9C31D161CFC110900B89A5E /* CustomAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C31D151CFC110900B89A5E /* CustomAccessoryView.swift */; };
@@ -61,7 +63,6 @@
 		C93DB07D1CEBCDAC0091BC5E /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		C93DB0801CEBCDAC0091BC5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C93DB0851CEBCDAC0091BC5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C93DB0881CEBCDAC0091BC5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C93DB08A1CEBCDAC0091BC5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C93DB0901CEBFFB20091BC5E /* GameInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInstance.swift; sourceTree = "<group>"; };
 		C93DB0921CEC046C0091BC5E /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
@@ -82,6 +83,9 @@
 		C97F28BF1D0625E2000ABBCD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C97F28C11D071B44000ABBCD /* KScoreLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KScoreLabel.swift; sourceTree = "<group>"; };
 		C9A949931D17A7DA0026C56F /* SwitchLanguageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchLanguageView.swift; sourceTree = "<group>"; };
+		C9A949951D18E6820026C56F /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		C9A949971D18EF8C0026C56F /* AdManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdManager.swift; sourceTree = "<group>"; };
+		C9A949991D18F8F20026C56F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9A9C89C1CF2854D00157B63 /* SpeedometerDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedometerDemoViewController.h; sourceTree = "<group>"; };
 		C9A9C89D1CF2854D00157B63 /* SpeedometerDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeedometerDemoViewController.m; sourceTree = "<group>"; };
 		C9B7D9451D165D1C00AE5C9E /* TextSpeed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "TextSpeed-Bridging-Header.h"; path = "TextSpeed/TextSpeed-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 		C93DB06F1CEBCDAB0091BC5E = {
 			isa = PBXGroup;
 			children = (
+				C9A949991D18F8F20026C56F /* LaunchScreen.storyboard */,
 				C97F28BF1D0625E2000ABBCD /* CoreGraphics.framework */,
 				C97F28B91D0528BA000ABBCD /* AVFoundation.framework */,
 				C97F28B71D04FA2D000ABBCD /* GameKit.framework */,
@@ -177,6 +182,7 @@
 				C93DB07B1CEBCDAC0091BC5E /* AppDelegate.swift */,
 				C93DB0901CEBFFB20091BC5E /* GameInstance.swift */,
 				C93DB07D1CEBCDAC0091BC5E /* GameViewController.swift */,
+				C9A949971D18EF8C0026C56F /* AdManager.swift */,
 				C9478BB41CED2E190070984F /* MainMenuViewController.swift */,
 				C9A949931D17A7DA0026C56F /* SwitchLanguageView.swift */,
 				C9ECF7B11CF14D3800345750 /* SpeedometerView.swift */,
@@ -186,7 +192,6 @@
 				C9C31D171CFCE9F300B89A5E /* GamePauseView.swift */,
 				C93DB07F1CEBCDAC0091BC5E /* Main.storyboard */,
 				C93DB0851CEBCDAC0091BC5E /* Assets.xcassets */,
-				C93DB0871CEBCDAC0091BC5E /* LaunchScreen.storyboard */,
 				C93DB08A1CEBCDAC0091BC5E /* Info.plist */,
 				C9478BB61CED4DA10070984F /* ExpandButton.swift */,
 				C9478BB81CED67300070984F /* ShrinkButton.swift */,
@@ -196,6 +201,7 @@
 				C9F872D51D1318DD0042C8AC /* CountingLabel.swift */,
 				C9F872E51D1391E70042C8AC /* TimeScoreHorizontalView.swift */,
 				C9F872E91D13AFA50042C8AC /* TimerAndScoreView.swift */,
+				C9A949951D18E6820026C56F /* LaunchScreenViewController.swift */,
 			);
 			path = TextSpeed;
 			sourceTree = "<group>";
@@ -287,12 +293,12 @@
 				C9C530061D12461000E7218D /* Resamitz.otf in Resources */,
 				C96DAAC41D17726E00B514DD /* germanwords.txt in Resources */,
 				C96DAAC61D17726E00B514DD /* russianwords.txt in Resources */,
-				C93DB0891CEBCDAC0091BC5E /* LaunchScreen.storyboard in Resources */,
 				C93DB0861CEBCDAC0091BC5E /* Assets.xcassets in Resources */,
 				C96DAACA1D17726E00B514DD /* englishwords.txt in Resources */,
 				C97F28BC1D052BEC000ABBCD /* wrong-type.wav in Resources */,
 				C96DAAC51D17726E00B514DD /* spanishwords.txt in Resources */,
 				C9F872DA1D1377820042C8AC /* click_sound.wav in Resources */,
+				C9A9499A1D18F8F20026C56F /* LaunchScreen.storyboard in Resources */,
 				C9209DE11D165BBF00F8717F /* GoogleService-Info.plist in Resources */,
 				C9F872E21D1381240042C8AC /* points_counting.mp3 in Resources */,
 				C93DB0811CEBCDAC0091BC5E /* Main.storyboard in Resources */,
@@ -374,7 +380,9 @@
 				C93DB0931CEC046C0091BC5E /* Timer.swift in Sources */,
 				C9F872E61D1391E70042C8AC /* TimeScoreHorizontalView.swift in Sources */,
 				C9C31D141CFB9F0B00B89A5E /* GameEndView.swift in Sources */,
+				C9A949961D18E6820026C56F /* LaunchScreenViewController.swift in Sources */,
 				C9F872EA1D13AFA50042C8AC /* TimerAndScoreView.swift in Sources */,
+				C9A949981D18EF8C0026C56F /* AdManager.swift in Sources */,
 				C9478BB71CED4DA10070984F /* ExpandButton.swift in Sources */,
 				C9FF96061D04B949008BFEDA /* GameManager.swift in Sources */,
 				C9ECF7B21CF14D3800345750 /* SpeedometerView.swift in Sources */,
@@ -393,14 +401,6 @@
 				C93DB0801CEBCDAC0091BC5E /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C93DB0871CEBCDAC0091BC5E /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C93DB0881CEBCDAC0091BC5E /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -496,6 +496,7 @@
 			baseConfigurationReference = E7D38248F74F1AB413B7E6D4 /* Pods-TextSpeed.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -515,6 +516,7 @@
 			baseConfigurationReference = 4753C9031D7220650DA40C54 /* Pods-TextSpeed.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
