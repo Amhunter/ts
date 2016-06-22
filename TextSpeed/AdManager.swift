@@ -8,9 +8,9 @@
 
 import UIKit
 
-class Registration {
-    var appDelegate:AppDelegate!
-    static var sharedInstance = Registration()
+class AdManager {
+    var appDelegate:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    static var sharedInstance = AdManager()
     func showAds(viewController:UIViewController, view:UIView?) {
         
         let bannerView:UIView = view ?? viewController.view
@@ -18,6 +18,7 @@ class Registration {
         //Admob
         appDelegate.adMobBanner.rootViewController = viewController
         appDelegate.adMobBanner.delegate = appDelegate
+        
         let request = GADRequest()
         appDelegate.adMobBanner.adUnitID = "ca-app-pub-2682126928165727/9577327896"
         appDelegate.adMobBanner.loadRequest(request)
@@ -27,9 +28,20 @@ class Registration {
         bannerView.addConstraint(myConstraint)
         myConstraint = NSLayoutConstraint(item: appDelegate.adMobBanner, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: bannerView, attribute: NSLayoutAttribute.Trailing, multiplier: 1.0, constant: 0)
         bannerView.addConstraint(myConstraint)
-        myConstraint = NSLayoutConstraint(item: appDelegate.adMobBanner, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: bannerView, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: 0)
+        myConstraint = NSLayoutConstraint(item: appDelegate.adMobBanner, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: bannerView, attribute: NSLayoutAttribute.Top, multiplier: 1.0, constant: 0)
         bannerView.addConstraint(myConstraint)
+        
 
+
+    }
+    
+    func adResize(screenWidth:CGFloat, screenHeight:CGFloat) {
+        
+        if screenWidth > screenHeight{
+            appDelegate.adMobBanner.adSize = kGADAdSizeSmartBannerLandscape
+        } else {
+            appDelegate.adMobBanner.adSize = kGADAdSizeSmartBannerPortrait
+        }
     }
 
 

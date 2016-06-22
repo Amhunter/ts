@@ -19,14 +19,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logoView" translatesAutoresizingMaskIntoConstraints="NO" id="6db-DP-nx5">
-                                <rect key="frame" x="144" y="202" width="240" height="128"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoView" translatesAutoresizingMaskIntoConstraints="NO" id="6db-DP-nx5">
+                                <rect key="frame" x="201" y="201" width="198" height="198"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="6db-DP-nx5" secondAttribute="height" multiplier="1:1" id="P1d-GM-t40"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="GumiGrisha &amp;Co" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="vj6-vR-DNp">
-                                <rect key="frame" x="243" y="139" width="42" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GumiGrisha &amp;Co" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="vj6-vR-DNp">
+                                <rect key="frame" x="60" y="-82" width="480" height="283"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="200"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
