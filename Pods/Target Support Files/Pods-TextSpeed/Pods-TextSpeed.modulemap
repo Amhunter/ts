@@ -1,0 +1,6 @@
+framework module Pods_TextSpeed {
+  umbrella header "Pods-TextSpeed-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoView" translatesAutoresizingMaskIntoConstraints="NO" id="6db-DP-nx5">
+                                <rect key="frame" x="201" y="201" width="198" height="198"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6db-DP-nx5" secondAttribute="height" multiplier="1:1" id="P1d-GM-t40"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GumiGrisha &amp;Co" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="vj6-vR-DNp">
+                                <rect key="frame" x="60" y="-82" width="480" height="283"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="200"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.8980392157" green="0.0" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="vj6-vR-DNp" firstAttribute="bottom" secondItem="6db-DP-nx5" secondAttribute="top" id="1e9-uw-sOo"/>
+                            <constraint firstItem="6db-DP-nx5" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="QQh-2w-D8V"/>
+                            <constraint firstItem="6db-DP-nx5" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="220:667" id="cfA-Y9-JfX"/>
+                            <constraint firstItem="vj6-vR-DNp" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.8" id="gdE-1b-4Y3"/>
+                            <constraint firstItem="vj6-vR-DNp" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mIv-Wq-squ"/>
+                            <constraint firstItem="6db-DP-nx5" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="yPs-rK-maR"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logoView" width="330" height="330"/>
+    </resources>
+</document>
